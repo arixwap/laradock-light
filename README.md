@@ -29,6 +29,17 @@
 	</a>
 </p>
 
+## Disclaimer
+
+This laradock version has been reduced and modified for the purpose of using only required services. This light laradock version only contains following services:
+
+- Nginx
+- PHP-FPM
+- MariaDB
+- Workspace
+- Docker In Docker
+
+---
 
 ## Join Us
 
@@ -38,11 +49,9 @@
 
 ---
 
-
 ## Awesome People
 
 Laradock is an MIT-licensed open source project with its ongoing development made possible entirely by the support of all these smart and generous people, from code contributors to financial contributors. 💜
-
 
 ### Project Maintainers
 
@@ -182,11 +191,9 @@ You can support us using any of the methods below:
 
 ---
 
-
 ## Sponsors
 
 Sponsoring is an act of giving in a different fashion. 🌱
-
 
 ### Gold Sponsors
 
@@ -196,9 +203,9 @@ Sponsoring is an act of giving in a different fashion. 🌱
 <a href="https://onlinecasinohex.ca/online-casinos/"  target="_blank"   style="margin-right: 4em"><img src="https://raw.githubusercontent.com/laradock/laradock/master/.github/home-page-images/custom-sponsors/CA.png"                   height="75px"    alt="Online casino list in Canada by OnlineCasinoHEX.ca"></a>
 <a href="https://aussiecasinohex.com/online-pokies/"  target="_blank"   style="margin-right: 4em"><img src="https://raw.githubusercontent.com/laradock/laradock/master/.github/home-page-images/custom-sponsors/AU.png"                   height="75px"    alt="Online pokies by AussieCasinoHEX.com"></a>
 <a href="http://apiato.io/"                           target="_blank"   style="margin-right: 4em"><img src="https://raw.githubusercontent.com/laradock/laradock/master/.github/home-page-images/custom-sponsors/apiato.png"               height="75px"    alt="Apiato Build PHP API's faster"></a>
+
 <!-- <a href="https://www.bestonlinecasino.com/"           target="_blank"   style="margin-right: 4em"><img src="https://raw.githubusercontent.com/laradock/laradock/master/.github/home-page-images/custom-sponsors/bestonlinecasino.jpg"     height="75px"    alt="We thank bestonlinecasino.com for their support"></a> -->
 <!-- <a href="https://casinopilotti.com/"                  target="_blank"   style="margin-right: 4em"><img src="https://raw.githubusercontent.com/laradock/laradock/master/.github/home-page-images/custom-sponsors/casinopilotti.png"        height="75px"    alt="CasinoPilotti"></a> -->
-
 
 <a href="https://opencollective.com/laradock/tiers/gold-sponsors/0/website" target="_blank"><img src="https://opencollective.com/laradock/tiers/gold-sponsors/0/avatar.svg?button=false&isActive=true" height="75px"></a>
 <a href="https://opencollective.com/laradock/tiers/gold-sponsors/1/website" target="_blank"><img src="https://opencollective.com/laradock/tiers/gold-sponsors/1/avatar.svg?button=false&isActive=true" height="75px"></a>
@@ -225,7 +232,6 @@ Sponsoring is an act of giving in a different fashion. 🌱
 <p align="center">
 
 <!-- <a href="https://veepn.com/vpn-apps/vpn-for-chrome/"  target="_blank"   style="margin-right: 4em"><img src="https://raw.githubusercontent.com/laradock/laradock/master/.github/home-page-images/custom-sponsors/VeePN.png"                height="65px"    alt="VeePN Chrome extension"></a> -->
-
 
 <a href="https://opencollective.com/laradock/tiers/silver-sponsors/0/website" target="_blank"><img src="https://opencollective.com/laradock/tiers/silver-sponsors/0/avatar.svg?button=false&isActive=true" height="65px"></a>
 <a href="https://opencollective.com/laradock/tiers/silver-sponsors/1/website" target="_blank"><img src="https://opencollective.com/laradock/tiers/silver-sponsors/1/avatar.svg?button=false&isActive=true" height="65px"></a>
@@ -330,32 +336,26 @@ Sponsoring is an act of giving in a different fashion. 🌱
 
 </p>
 
-
 You can sponsor us using any of the methods below:
 
 <b>1:</b> Sponsor via [Open Collective](https://opencollective.com/laradock/).
 <br>
 <b>2:</b> Email us at <a href = "mailto: support@laradock.io">support@laradock.io</a>.
 
-*Sponsors logos are displayed on the [github repository](https://github.com/laradock/laradock/) page and the [documentation website](http://laradock.io/) home page.*
+_Sponsors logos are displayed on the [github repository](https://github.com/laradock/laradock/) page and the [documentation website](http://laradock.io/) home page._
 
 ## License
 
 [MIT](https://github.com/laradock/laradock/blob/master/LICENSE) © Mahmoud Zalt
 
-
-[comment]: # (Open Collective Tiers)
-
+[comment]: # "Open Collective Tiers"
 [contributors-src]: https://opencollective.com/laradock/contributors.svg?width=890&button=false&isActive=true
 [contributors-href]: https://github.com/laradock/laradock/graphs/contributors
 [backers-src]: https://opencollective.com/laradock/tiers/awesome-backers.svg?width=890&button=false&isActive=true
 [backers-href]: https://opencollective.com/laradock#contributors
-
 [gold-sponsors-src]: https://opencollective.com/laradock/tiers/gold-sponsors.svg?avatarHeight=80&width=890&button=false&isActive=true
 [gold-sponsors-href]: https://opencollective.com/laradock#contributors
 [silver-sponsors-src]: https://opencollective.com/laradock/tiers/silver-sponsors.svg?avatarHeight=64&width=890&button=false&isActive=true
 [silver-sponsors-href]: https://opencollective.com/laradock#contributors
 [bronze-sponsors-src]: https://opencollective.com/laradock/tiers/bronze-sponsors.svg?avatarHeight=48&width=890&button=false&isActive=true
 [bronze-sponsors-href]: https://opencollective.com/laradock#contributors
-
-
