@@ -388,6 +388,7 @@ services:
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}-phpmyadmin.rule=Host(${PMA_HOST})
     expose:
       - 80
+
   ### Docker-in-Docker ################################################
   docker-in-docker:
     container_name: ${COMPOSE_PROJECT_NAME}-docker-in-docker
