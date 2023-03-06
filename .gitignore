@@ -6,6 +6,7 @@
 /nginx/ssl/*.key
 /nginx/ssl/*.csr
 
+.DS_Store
 !.editorconfig
 !.env.example
 !.gitattributes
