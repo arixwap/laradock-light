@@ -1,5 +1,12 @@
 /*
 
+!/apache2/
+/apache2/logs/
+/apache2/ssl/*.crt
+/apache2/ssl/*.key
+/apache2/ssl/*.csr
+/apache2/ssl/*.org
+
 !/nginx/
 /nginx/logs/
 /nginx/ssl/*.crt
