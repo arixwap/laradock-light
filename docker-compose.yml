@@ -150,15 +150,14 @@ services:
       - ./php-worker/supervisord.d:/etc/supervisord.d
     extra_hosts:
       - "dockerhost:${DOCKER_HOST_IP}"
-    # Disable ports if not using Traefik
-    ports:
-      - "${WORKSPACE_SSH_PORT}:22"
-      - "${WORKSPACE_BROWSERSYNC_HOST_PORT}:3000"
-      - "${WORKSPACE_BROWSERSYNC_UI_HOST_PORT}:3001"
-      - "${WORKSPACE_VUE_CLI_SERVE_HOST_PORT}:8080"
-      - "${WORKSPACE_VUE_CLI_UI_HOST_PORT}:8000"
-      - "${WORKSPACE_ANGULAR_CLI_SERVE_HOST_PORT}:4200"
-      - "${WORKSPACE_VITE_PORT}:5173"
+    # ports:
+    #   - "${WORKSPACE_SSH_PORT}:22"
+    #   - "${WORKSPACE_BROWSERSYNC_HOST_PORT}:3000"
+    #   - "${WORKSPACE_BROWSERSYNC_UI_HOST_PORT}:3001"
+    #   - "${WORKSPACE_VUE_CLI_SERVE_HOST_PORT}:8080"
+    #   - "${WORKSPACE_VUE_CLI_UI_HOST_PORT}:8000"
+    #   - "${WORKSPACE_ANGULAR_CLI_SERVE_HOST_PORT}:4200"
+    #   - "${WORKSPACE_VITE_PORT}:5173"
     tty: true
     environment:
       - PHP_IDE_CONFIG=${PHP_IDE_CONFIG}
@@ -288,10 +287,49 @@ services:
     links:
       - docker-in-docker
 
+  ### Apache Server ########################################
+  apache2:
+    container_name: ${COMPOSE_PROJECT_NAME}-apache2
+    restart: ${APACHE_RESTART}
+    profiles: ["apache", "apache2"]
+    build:
+      context: ./apache2
+      args:
+        - PHP_UPSTREAM_CONTAINER=${APACHE_PHP_UPSTREAM_CONTAINER}
+        - PHP_UPSTREAM_PORT=${APACHE_PHP_UPSTREAM_PORT}
+        - PHP_UPSTREAM_TIMEOUT=${APACHE_PHP_UPSTREAM_TIMEOUT}
+        - DOCUMENT_ROOT=${APACHE_DOCUMENT_ROOT}
+        - APACHE_INSTALL_HTTP2=${APACHE_INSTALL_HTTP2}
+        - APACHE_FOR_MAC_M1=${APACHE_FOR_MAC_M1}
+    volumes:
+      - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}${APP_CODE_CONTAINER_FLAG}
+      - ${APACHE_HOST_LOG_PATH}:/var/log/apache2
+      - ${APACHE_SITES_PATH}:/etc/apache2/sites-available
+      - ${APACHE_SSL_PATH}:/etc/apache2/ssl
+    # Disable ports if not using Traefik
+    # ports:
+    #   - "${APACHE_HOST_HTTP_PORT}:80"
+    #   - "${APACHE_HOST_HTTPS_PORT}:443"
+    depends_on:
+      - php-fpm
+    networks:
+      - frontend
+      - backend
+      - proxy
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=proxy
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-apache2.entrypoints=${APACHE_ENTRYPOINT}
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-apache2.rule=Host(${APACHE_HOST})
+    expose:
+      - 80
+      - 443
+
   ### NGINX Server #########################################
   nginx:
     container_name: ${COMPOSE_PROJECT_NAME}-nginx
     restart: ${NGINX_RESTART}
+    profiles: ["nginx"]
     build:
       context: ./nginx
       args:
@@ -306,11 +344,10 @@ services:
       - ${NGINX_HOST_LOG_PATH}:/var/log/nginx
       - ${NGINX_SITES_PATH}:/etc/nginx/sites-available
       - ${NGINX_SSL_PATH}:/etc/nginx/ssl
-    # Disable ports if not using Traefik
-    ports:
-      - "${NGINX_HOST_HTTP_PORT}:80"
-      - "${NGINX_HOST_HTTPS_PORT}:443"
-      - "${VARNISH_BACKEND_PORT:-81}:81"
+    # ports:
+    #   - "${NGINX_HOST_HTTP_PORT}:80"
+    #   - "${NGINX_HOST_HTTPS_PORT}:443"
+    #   - "${VARNISH_BACKEND_PORT:-81}:81"
     depends_on:
       - php-fpm
     networks:
@@ -335,8 +372,8 @@ services:
     volumes:
       - ./mariadb/data:/var/lib/mysql
       - ./mariadb/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
-    ports:
-      - "${MARIADB_PORT}:3306"
+    # ports:
+    #   - "${MARIADB_PORT}:3306"
     environment:
       - TZ=${WORKSPACE_TIMEZONE}
       - MYSQL_DATABASE=${MARIADB_DATABASE}
@@ -354,8 +391,8 @@ services:
     volumes:
       - ./redis:/data
     command: --requirepass ${REDIS_PASSWORD}
-    ports:
-      - "${REDIS_PORT}:6379"
+    # ports:
+    #   - "${REDIS_PORT}:6379"
     networks:
       - backend
 
@@ -372,9 +409,8 @@ services:
       - MAX_EXECUTION_TIME=${PMA_MAX_EXECUTION_TIME}
       - MEMORY_LIMIT=${PMA_MEMORY_LIMIT}
       - UPLOAD_LIMIT=${PMA_UPLOAD_LIMIT}
-    # Disable ports if not using Traefik
-    ports:
-      - "${PMA_PORT}:80"
+    # ports:
+    #   - "${PMA_PORT}:80"
     depends_on:
       - "${PMA_DB_ENGINE}"
     networks:
