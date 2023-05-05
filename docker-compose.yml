@@ -23,7 +23,7 @@ services:
   ### Workspace Utilities ##################################
   workspace:
     container_name: ${COMPOSE_PROJECT_NAME}-workspace
-    restart: ${WORKSPACE_RESTART}
+    restart: ${WORKSPACE_RESTART:-no}
     build:
       context: ./workspace
       args:
@@ -178,7 +178,7 @@ services:
   ### PHP-FPM ##############################################
   php-fpm:
     container_name: ${COMPOSE_PROJECT_NAME}-php-fpm
-    restart: ${PHP_FPM_RESTART}
+    restart: ${PHP_FPM_RESTART:-no}
     build:
       context: ./php-fpm
       args:
@@ -293,7 +293,7 @@ services:
   ### Apache Server ########################################
   apache2:
     container_name: ${COMPOSE_PROJECT_NAME}-apache2
-    restart: ${APACHE_RESTART}
+    restart: ${APACHE_RESTART:-no}
     profiles: ["apache", "apache2"]
     build:
       context: ./apache2
@@ -330,7 +330,7 @@ services:
   ### NGINX Server #########################################
   nginx:
     container_name: ${COMPOSE_PROJECT_NAME}-nginx
-    restart: ${NGINX_RESTART}
+    restart: ${NGINX_RESTART:-no}
     profiles: ["nginx"]
     build:
       context: ./nginx
@@ -369,8 +369,9 @@ services:
   ### MariaDB ##############################################
   mariadb:
     container_name: ${COMPOSE_PROJECT_NAME}-mariadb
-    restart: ${MARIADB_RESTART}
-    image: mariadb:${MARIADB_VERSION}
+    restart: ${MARIADB_RESTART:-no}
+    profiles: ["mariadb", "mysql"]
+    image: mariadb:${MARIADB_VERSION:-latest}
     volumes:
       - ./mariadb/data:/var/lib/mysql
       - ./mariadb/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
@@ -388,8 +389,9 @@ services:
   ### Redis ################################################
   redis:
     container_name: ${COMPOSE_PROJECT_NAME}-redis
-    restart: ${REDIS_RESTART}
-    image: redis:${REDIS_VERSION}
+    restart: ${REDIS_RESTART:-no}
+    profiles: ["redis"]
+    image: redis:${REDIS_VERSION:-latest}
     volumes:
       - ./redis:/data
     command: --requirepass ${REDIS_PASSWORD}
@@ -401,8 +403,9 @@ services:
   ### phpMyAdmin ###########################################
   phpmyadmin:
     container_name: ${COMPOSE_PROJECT_NAME}-phpmyadmin
-    restart: ${PMA_RESTART}
-    image: phpmyadmin:${PMA_VERSION}
+    restart: ${PMA_RESTART:-no}
+    profiles: ["phpmyadmin", "pma"]
+    image: phpmyadmin:${PMA_VERSION:-latest}
     environment:
       - PMA_ARBITRARY=1
       - MYSQL_USER=${PMA_USER}
@@ -430,7 +433,7 @@ services:
   ### Docker-in-Docker ################################################
   docker-in-docker:
     container_name: ${COMPOSE_PROJECT_NAME}-docker-in-docker
-    restart: ${DOCKER_IN_DOCKER_RESTART}
+    restart: ${DOCKER_IN_DOCKER_RESTART:-no}
     image: docker:20.10-dind
     environment:
       DOCKER_TLS_SAN: DNS:docker-in-docker
