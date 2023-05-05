@@ -33,6 +33,16 @@ EXPOSE 80 443
 
 ARG APACHE_FOR_MAC_M1=false
 
+RUN apt-get update --fix-missing
+RUN apt-get install -fy logrotate
+
+# Log Rotate
+## Main Log rotate config, WARN:system groups is different
+COPY ./logrotate.conf /etc/logrotate.conf
+
+## Apache log rotate config
+COPY ./logrotate.d/apache2 /etc/logrotate.d/apache2
+
 RUN if [ ${APACHE_FOR_MAC_M1} = true ]; then \
     # Change application source from deb.debian.org to aliyun source
     wget -O "/usr/local/bin/go-replace" "https://github.com/webdevops/goreplace/releases/download/1.1.2/gr-arm64-linux" && \
